@@ -1,17 +1,5 @@
 import JSBI from 'jsbi'
-import {
-  ChainId,
-  ETHER,
-  CurrencyAmount,
-  Pair,
-  Percent,
-  Route,
-  Token,
-  TokenAmount,
-  Trade,
-  TradeType,
-  WETH
-} from '../src'
+import { ChainId, DEV, CurrencyAmount, Pair, Percent, Route, Token, TokenAmount, Trade, TradeType, WETH } from '../src'
 
 describe('Trade', () => {
   const token0 = new Token(ChainId.MAINNET, '0x0000000000000000000000000000000000000001', 18, 't0')
@@ -32,42 +20,42 @@ describe('Trade', () => {
 
   const empty_pair_0_1 = new Pair(new TokenAmount(token0, JSBI.BigInt(0)), new TokenAmount(token1, JSBI.BigInt(0)))
 
-  it('can be constructed with ETHER as input', () => {
+  it('can be constructed with DEV as input', () => {
     const trade = new Trade(
-      new Route([pair_weth_0], ETHER),
+      new Route([pair_weth_0], DEV),
       CurrencyAmount.ether(JSBI.BigInt(100)),
       TradeType.EXACT_INPUT
     )
-    expect(trade.inputAmount.currency).toEqual(ETHER)
+    expect(trade.inputAmount.currency).toEqual(DEV)
     expect(trade.outputAmount.currency).toEqual(token0)
   })
-  it('can be constructed with ETHER as input for exact output', () => {
+  it('can be constructed with DEV as input for exact output', () => {
     const trade = new Trade(
-      new Route([pair_weth_0], ETHER, token0),
+      new Route([pair_weth_0], DEV, token0),
       new TokenAmount(token0, JSBI.BigInt(100)),
       TradeType.EXACT_OUTPUT
     )
-    expect(trade.inputAmount.currency).toEqual(ETHER)
+    expect(trade.inputAmount.currency).toEqual(DEV)
     expect(trade.outputAmount.currency).toEqual(token0)
   })
 
-  it('can be constructed with ETHER as output', () => {
+  it('can be constructed with DEV as output', () => {
     const trade = new Trade(
-      new Route([pair_weth_0], token0, ETHER),
+      new Route([pair_weth_0], token0, DEV),
       CurrencyAmount.ether(JSBI.BigInt(100)),
       TradeType.EXACT_OUTPUT
     )
     expect(trade.inputAmount.currency).toEqual(token0)
-    expect(trade.outputAmount.currency).toEqual(ETHER)
+    expect(trade.outputAmount.currency).toEqual(DEV)
   })
-  it('can be constructed with ETHER as output for exact input', () => {
+  it('can be constructed with DEV as output for exact input', () => {
     const trade = new Trade(
-      new Route([pair_weth_0], token0, ETHER),
+      new Route([pair_weth_0], token0, DEV),
       new TokenAmount(token0, JSBI.BigInt(100)),
       TradeType.EXACT_INPUT
     )
     expect(trade.inputAmount.currency).toEqual(token0)
-    expect(trade.outputAmount.currency).toEqual(ETHER)
+    expect(trade.outputAmount.currency).toEqual(DEV)
   })
 
   describe('#bestTradeExactIn', () => {
@@ -147,33 +135,33 @@ describe('Trade', () => {
       expect(result).toHaveLength(0)
     })
 
-    it('works for ETHER currency input', () => {
+    it('works for DEV currency input', () => {
       const result = Trade.bestTradeExactIn(
         [pair_weth_0, pair_0_1, pair_0_3, pair_1_3],
         CurrencyAmount.ether(JSBI.BigInt(100)),
         token3
       )
       expect(result).toHaveLength(2)
-      expect(result[0].inputAmount.currency).toEqual(ETHER)
+      expect(result[0].inputAmount.currency).toEqual(DEV)
       expect(result[0].route.path).toEqual([WETH[ChainId.MAINNET], token0, token1, token3])
       expect(result[0].outputAmount.currency).toEqual(token3)
-      expect(result[1].inputAmount.currency).toEqual(ETHER)
+      expect(result[1].inputAmount.currency).toEqual(DEV)
       expect(result[1].route.path).toEqual([WETH[ChainId.MAINNET], token0, token3])
       expect(result[1].outputAmount.currency).toEqual(token3)
     })
-    it('works for ETHER currency output', () => {
+    it('works for DEV currency output', () => {
       const result = Trade.bestTradeExactIn(
         [pair_weth_0, pair_0_1, pair_0_3, pair_1_3],
         new TokenAmount(token3, JSBI.BigInt(100)),
-        ETHER
+        DEV
       )
       expect(result).toHaveLength(2)
       expect(result[0].inputAmount.currency).toEqual(token3)
       expect(result[0].route.path).toEqual([token3, token0, WETH[ChainId.MAINNET]])
-      expect(result[0].outputAmount.currency).toEqual(ETHER)
+      expect(result[0].outputAmount.currency).toEqual(DEV)
       expect(result[1].inputAmount.currency).toEqual(token3)
       expect(result[1].route.path).toEqual([token3, token1, token0, WETH[ChainId.MAINNET]])
-      expect(result[1].outputAmount.currency).toEqual(ETHER)
+      expect(result[1].outputAmount.currency).toEqual(DEV)
     })
   })
 
@@ -372,21 +360,21 @@ describe('Trade', () => {
       expect(result).toHaveLength(0)
     })
 
-    it('works for ETHER currency input', () => {
+    it('works for DEV currency input', () => {
       const result = Trade.bestTradeExactOut(
         [pair_weth_0, pair_0_1, pair_0_3, pair_1_3],
-        ETHER,
+        DEV,
         new TokenAmount(token3, JSBI.BigInt(100))
       )
       expect(result).toHaveLength(2)
-      expect(result[0].inputAmount.currency).toEqual(ETHER)
+      expect(result[0].inputAmount.currency).toEqual(DEV)
       expect(result[0].route.path).toEqual([WETH[ChainId.MAINNET], token0, token1, token3])
       expect(result[0].outputAmount.currency).toEqual(token3)
-      expect(result[1].inputAmount.currency).toEqual(ETHER)
+      expect(result[1].inputAmount.currency).toEqual(DEV)
       expect(result[1].route.path).toEqual([WETH[ChainId.MAINNET], token0, token3])
       expect(result[1].outputAmount.currency).toEqual(token3)
     })
-    it('works for ETHER currency output', () => {
+    it('works for DEV currency output', () => {
       const result = Trade.bestTradeExactOut(
         [pair_weth_0, pair_0_1, pair_0_3, pair_1_3],
         token3,
@@ -395,10 +383,10 @@ describe('Trade', () => {
       expect(result).toHaveLength(2)
       expect(result[0].inputAmount.currency).toEqual(token3)
       expect(result[0].route.path).toEqual([token3, token0, WETH[ChainId.MAINNET]])
-      expect(result[0].outputAmount.currency).toEqual(ETHER)
+      expect(result[0].outputAmount.currency).toEqual(DEV)
       expect(result[1].inputAmount.currency).toEqual(token3)
       expect(result[1].route.path).toEqual([token3, token1, token0, WETH[ChainId.MAINNET]])
-      expect(result[1].outputAmount.currency).toEqual(ETHER)
+      expect(result[1].outputAmount.currency).toEqual(DEV)
     })
   })
 })
