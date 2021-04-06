@@ -6,6 +6,7 @@ export type BigintIsh = JSBI | bigint | string
 export enum ChainId {
   MAINNET = 1,
   STANDALONE = 1281,
+  MOONROCK = 1286,
   MOONBASE = 1287,
 }
 
@@ -22,7 +23,8 @@ export enum Rounding {
 
 export const FACTORY_ADDRESS: { [key: string]: string } = {
   [ChainId.STANDALONE]: '0x5c4242beB94dE30b922f57241f1D02f36e906915',
-  [ChainId.MOONBASE]: '0x8695A81b7569681487b62c5A47200c7165bFB95b',
+  [ChainId.MOONROCK]: '0x8233Bbaf89FC50c314766F04aB7d1a15c50462bf',
+  [ChainId.MOONBASE]: '0x8233Bbaf89FC50c314766F04aB7d1a15c50462bf',
 }
 
 export const INIT_CODE_HASH = '0x01429e880a7972ebfbba904a5bbe32a816e78273e4b38ffa6bdeaebce8adba7c'

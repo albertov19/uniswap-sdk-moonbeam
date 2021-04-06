@@ -71,9 +71,16 @@ export const WDEV = {
     'WDEV',
     'Wrapped Dev'
   ),
+  [ChainId.MOONROCK]: new Token(
+    ChainId.MOONROCK,
+    '0x63f4Fd30Da76FFfb7fE4A560Fa6dc65107873740',
+    18,
+    'WDEV',
+    'Wrapped Dev'
+  ),
   [ChainId.MOONBASE]: new Token(
     ChainId.MOONBASE,
-    '0xFCd5cAB5ce3cA5089fD6c4a5072626037E9746EA',
+    '0x63f4Fd30Da76FFfb7fE4A560Fa6dc65107873740',
     18,
     'WDEV',
     'Wrapped Dev'
